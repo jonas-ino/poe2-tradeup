@@ -3,6 +3,9 @@
 
 Arbitrage tool for finding profitable currency exchange sequences in Path of Exile 2's economy. Item rates are set by players and are very sensitive to community trends, rising and falling based on primarily crafting and build trends.
 
+## Stack
+Python, Requests, Jupyter
+
 ## Problem
 PoE 2 has no fixed exchange rates, and item value is based on what other players are willing to accept at any time. By trading items for different currencies, sequences of trades have the possibility to return more than the initial investment.
 
@@ -23,9 +26,12 @@ Trade volume is also provided, allowing noise (low-volume trades which are unlik
 ## Current State
 - Parses official item catalogue into 14 tradeable categories
 - Creates a requests.Session client for connection reuse across multiple item pair queries (only one TLS handshake instead of a new one for each pair). Requests timeout and notify on bad requests (4xx/5xx status codes)
-- price_history(want, have, interval, league) returns a full history for an item pair
+- price_history(have, want, interval, league) returns a full history for an item pair
 - current_rate(have, want) returns the latest close price
 - get_price(have, want) returns the current rate as a ratio
+
+# Plans
+- Planning multi-trade sequence search (A -> B -> C -> A) and compare final value fom the start to determine profitability.
 
 ## Running Instructions
 - pip install requests
@@ -33,4 +39,4 @@ Trade volume is also provided, allowing noise (low-volume trades which are unlik
 
 ## Limitations
 - Rates are taken from recorded trades. If the close price is an outlier (eg. a low volume pair), prices may be inaccurate.
--
+- No rate limiting. 
